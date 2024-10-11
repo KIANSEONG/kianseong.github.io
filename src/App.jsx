@@ -54,7 +54,8 @@ function App() {
   };
 
   return (
-    <div className="inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:20px_20px]">
+    <div className="relative min-h-screen">
+      <div className="fixed inset-0 bg-white bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:20px_20px]" />
       <nav className="w-1/12 flex flex-col items-center justify-center fixed top-0 left-0 h-screen px-4 z-10">
         {navItems.map((item) => (
           <button
@@ -71,7 +72,7 @@ function App() {
           </button>
         ))}
       </nav>
-      <main className="w-11/12 ml-[8.33%] min-h-screen">
+      <main className="relative w-11/12 ml-[8.33%] min-h-screen">
         <div className="p-8 pl-16">
           <section
             ref={(el) => (sectionRefs.current.about = el)}
