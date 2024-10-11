@@ -7,47 +7,12 @@ import {
   HiDocument,
 } from 'react-icons/hi';
 import { TypeAnimation } from 'react-type-animation';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
 
 function App() {
   const [activeSection, setActiveSection] = useState('about');
   const [darkMode, setDarkMode] = useState(false);
   const sectionRefs = useRef({});
-
-  const DarkIcon = () => (
-    <svg
-      className="hidden dark:block"
-      width="16"
-      height="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        className="fill-slate-400"
-        d="M6.2 1C3.2 1.8 1 4.6 1 7.9 1 11.8 4.2 15 8.1 15c3.3 0 6-2.2 6.9-5.2C9.7 11.2 4.8 6.3 6.2 1Z"
-      />
-      <path
-        className="fill-slate-500"
-        d="M12.5 5a.625.625 0 0 1-.625-.625 1.252 1.252 0 0 0-1.25-1.25.625.625 0 1 1 0-1.25 1.252 1.252 0 0 0 1.25-1.25.625.625 0 1 1 1.25 0c.001.69.56 1.249 1.25 1.25a.625.625 0 1 1 0 1.25c-.69.001-1.249.56-1.25 1.25A.625.625 0 0 1 12.5 5Z"
-      />
-    </svg>
-  );
-
-  const LightIcon = () => (
-    <svg
-      className="dark:hidden"
-      width="16"
-      height="16"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        className="fill-slate-300"
-        d="M7 0h2v2H7zM12.88 1.637l1.414 1.415-1.415 1.413-1.413-1.414zM14 7h2v2h-2zM12.95 14.433l-1.414-1.413 1.413-1.415 1.415 1.414zM7 14h2v2H7zM2.98 14.364l-1.413-1.415 1.414-1.414 1.414 1.415zM0 7h2v2H0zM3.05 1.706 4.463 3.12 3.05 4.535 1.636 3.12z"
-      />
-      <path
-        className="fill-slate-400"
-        d="M8 4C5.8 4 4 5.8 4 8s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4Z"
-      />
-    </svg>
-  );
 
   const navItems = useMemo(
     () => [
@@ -90,14 +55,14 @@ function App() {
     sectionRefs.current[sectionId].scrollIntoView({ behavior: 'smooth' });
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('dark');
+  const toggleDarkMode = (checked) => {
+    setDarkMode(checked);
   };
 
   return (
     <div className={`relative min-h-screen ${darkMode ? 'dark' : ''}`}>
       <div className="fixed inset-0 bg-white dark:bg-gray-900 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:20px_20px]" />
+
       <nav className="w-1/12 flex flex-col items-center justify-center fixed top-0 left-0 h-screen px-4 z-10">
         {navItems.map((item) => (
           <button
@@ -114,21 +79,15 @@ function App() {
           </button>
         ))}
       </nav>
-      <div className="flex flex-col justify-center fixed top-4 right-4 z-20">
-        <input
-          type="checkbox"
-          name="light-switch"
-          id="light-switch"
-          className="light-switch sr-only"
+
+      <div className="fixed top-4 right-4 z-20">
+        <DarkModeSwitch
           checked={darkMode}
           onChange={toggleDarkMode}
+          size={24}
         />
-        <label className="relative cursor-pointer p-2" htmlFor="light-switch">
-          <LightIcon />
-          <DarkIcon />
-          <span className="sr-only">Switch to light / dark version</span>
-        </label>
       </div>
+
       <main className="relative w-11/12 ml-[8.33%] min-h-screen text-black dark:text-white">
         <div className="p-8 pl-16">
           <section
